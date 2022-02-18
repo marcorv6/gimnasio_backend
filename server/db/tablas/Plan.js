@@ -1,33 +1,32 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../config/sequelize.conf');
 
-class Usuario extends Model {}
-Usuario.init(
+class Plan extends Model {}
+Plan.init(
   {
-    idUsuario: {
+    idPlan: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       unique: true,
       autoIncrement: true,
     },
-    usuario: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      unique: true,
+    nombre: {
+      type: DataTypes.STRING(30),
+      allowNull: false
     },
-    password: {
-      type: DataTypes.STRING(60),
+    precio: {
+      type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: null,
     },
   },
   {
     sequelize,
-    modelName: 'Usuario',
-    tableName: 'usuario',
+    modelName: 'Plan',
+    tableName: 'plan',
     timestamps: false,
   }
 );
 
-module.exports = Usuario;
+module.exports = Plan;
