@@ -1,14 +1,13 @@
-const helperPath = '../helper';
+const helperPath = '../../helper';
 const { comparar } = require(`${helperPath}/encriptar`);
 const validar = require(`${helperPath}/validar`);
-const dbPath = '../db/tablas';
-const Usuario = require(`${dbPath}/Usuario`);
+const Trabajador = require(`../../db/tablas/Trabajador`);
 
 const login = async (body) => {
   const usuario = validar.validar(body.usuario, 'usuario');
   const password = validar.validar(body.password, 'contraseña');
 
-  return Usuario.findOne({
+  return Trabajador.findOne({
     where: { usuario },
   })
     .then((res) => {

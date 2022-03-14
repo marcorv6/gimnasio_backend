@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const login = require('../controller/login');
+const login = require('../controller/Trabajador/login');
 
 app.post(`/login`, (req, res) => {
   return login(req.body)

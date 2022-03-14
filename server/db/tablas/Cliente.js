@@ -17,15 +17,17 @@ Cliente.init(
     },
     fechaNacimiento: {
       type: DataTypes.DATE,
-      defaultValue: null,
+      allowNull: false
     },
     fechaUltimoPago: {
       type: DataTypes.DATE,
       defaultValue: null,
+      allowNull: true
     },
     fechaProximoPago: {
       type: DataTypes.DATE,
       defaultValue: null,
+      allowNull: true
     },
     telefono: {
       type: DataTypes.STRING(15),
