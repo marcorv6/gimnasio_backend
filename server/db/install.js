@@ -1,6 +1,6 @@
 require('../config/config');
 const colors = require('colors');
-const Admin = require('./tablas/Admin');
+const TipoUsuario = require('./tablas/TipoUsuario');
 const Cliente = require('./tablas/Cliente');
 const Pago = require('./tablas/Pago');
 const Plan = require('./tablas/Plan');
@@ -15,8 +15,8 @@ const drop = async () => {
   console.log('La tabla Trabajador se desinstalo correctamente.'.magenta);
   await Cliente.drop();
   console.log('La tabla Cliente se desinstalo correctamente.'.magenta);
-  await Admin.drop();
-  console.log('La tabla Admin se desinstalo correctamente.'.magenta);
+  await TipoUsuario.drop();
+  console.log('La tabla TipoUsuario se desinstalo correctamente.'.magenta);
   await Plan.drop();
   console.log('La tabla Plan se desinstalo correctamente.'.magenta);
 };
@@ -26,8 +26,8 @@ const sync = async () => {
 
   await Plan.sync();
   console.log('La tabla Plan se instalo correctamente.'.magenta);
-  await Admin.sync();
-  console.log('La tabla Admin se instalo correctamente.'.magenta);
+  await TipoUsuario.sync();
+  console.log('La tabla TipoUsuario se instalo correctamente.'.magenta);
   await Cliente.sync();
   console.log('La tabla Cliente se instalo correctamente.'.magenta);
   await Trabajador.sync();

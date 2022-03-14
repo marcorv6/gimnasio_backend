@@ -1,4 +1,4 @@
-const Admin = require('./tablas/Admin');
+const TipoUsuario = require('./tablas/TipoUsuario');
 const Cliente = require('./tablas/Cliente');
 const Pago = require('./tablas/Pago');
 const Plan = require('./tablas/Plan');
@@ -19,12 +19,14 @@ const dataPlanes = async () => {
 };
 
 const dataAdmin = async () => {
-  await Admin.create({
-    nombre: 'Admin',
-    usuario: 'Admin',
-    password: encriptar('123'),
-  });
-  console.log(`Se insertó el admin.`.magenta);
+  let tiposUser = ['Admin', 'Operador',];
+
+  for (let i = 0; i < tiposUser.length; i++) {
+    await TipoUsuario.create({
+      nombre: tiposUser[i]
+    });
+    console.log(`Se insertó el tipo usuario ${tiposUser[i]}.`.magenta);
+  }
 };
 
 const dataClientes = async () => {
@@ -80,37 +82,41 @@ const dataTrabajadores = async () => {
   let trabajadores = [
     {
       nombre: 'Trabajador 1',
-      fechaUltimaActualizacion: '2022-02-08',
       usuario: 'trabajador1',
     },
     {
       nombre: 'Trabajador 2',
-      fechaUltimaActualizacion: '2022-02-09',
       usuario: 'trabajador2',
     },
     {
       nombre: 'Trabajador 3',
-      fechaUltimaActualizacion: '2022-02-10',
       usuario: 'trabajador3',
     },
     {
       nombre: 'Trabajador 4',
-      fechaUltimaActualizacion: '2022-02-11',
       usuario: 'trabajador4',
     },
   ];
 
+  await Trabajador.create({
+    nombre: "Admin",
+    password: encriptar('holi'),
+    usuario: "Admin",
+    admin: 0,
+    idTipoUsuario: 1
+  });
+  console.log(`Se insertó el admin.`.magenta);
   for (let i = 0; i < trabajadores.length; i++) {
     await Trabajador.create({
       nombre: trabajadores[i].nombre,
       usuario: trabajadores[i].usuario,
-      fechaUltimaActualizacion: trabajadores[i].fechaUltimaActualizacion,
       password: encriptar('holi'),
-      idAdmin: 1,
+      admin: 1,
+      idTipoUsuario: 2
     });
     console.log(`Se insertó el trabajador ${trabajadores[i].nombre}.`.magenta);
+  };
   }
-};
 
 const dataPagos = async () => {
   let pagos = ['11111111', '22222222', '33333333', '44444444'];

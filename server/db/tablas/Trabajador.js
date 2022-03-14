@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../../config/sequelize.conf');
-const Admin = require("./Admin")
+const TipoUsuario = require("./TipoUsuario")
 
 class Trabajador extends Model {}
 Trabajador.init(
@@ -18,7 +18,8 @@ Trabajador.init(
     },
     fechaUltimaActualizacion: {
       type: DataTypes.DATE,
-      defaultValue: null
+      defaultValue: sequelize.fn("NOW"),
+      allowNull: true
     },
     usuario: {
       type: DataTypes.STRING(25),
@@ -28,6 +29,10 @@ Trabajador.init(
       type: DataTypes.STRING(100),
       defaultValue: null,
     },
+    admin: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   },
   {
     sequelize,
@@ -37,9 +42,9 @@ Trabajador.init(
   }
 );
 
-Trabajador.belongsTo(Admin, {
+Trabajador.belongsTo(TipoUsuario, {
   foreignKey: {
-    name: 'idAdmin',
+    name: 'idTipoUsuario',
     type: DataTypes.INTEGER,
     allowNull: false,
   },
