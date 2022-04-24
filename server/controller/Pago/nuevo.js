@@ -50,14 +50,14 @@ const nuevo = async (body) => {
       Cliente.findOne({ where: { idCliente } }).then(async (res) => {
         res.fechaUltimoPago = moment();
         if(!res.fechaProximoPago) res.fechaProximoPago = fechaProximoPago;
-        if(moment(fechaProximoPago).isAfter(moment)) res.fechaProximoPago = fechaProximoPago;
+        if(moment(fechaProximoPago).isAfter(moment())) res.fechaProximoPago = fechaProximoPago;
         res.fechaProximoPago = moment(res.fechaProximoPago).add(cantidad, letra)
         return res.save();
       });
     })
     .then(res => {
-      return Pago.findOne({where: idPago})
-    })
+      return Pago.findOne({where: idPago, include: [{model: Cliente}, {model: Trabajador}]},
+    )})
     .then((res) => ({
       message: `Se resgistró correctamente este pago.`,
       data: res
