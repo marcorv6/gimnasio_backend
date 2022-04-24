@@ -16,7 +16,8 @@ Pago.init(
     },
     folio: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
+      defaultValue: null
     },
     monto: {
       type: DataTypes.FLOAT,

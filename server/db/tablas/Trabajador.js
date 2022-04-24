@@ -29,9 +29,10 @@ Trabajador.init(
       type: DataTypes.STRING(100),
       defaultValue: null,
     },
-    admin: {
+    idAdmin: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: null
     }
   },
   {

@@ -68,7 +68,7 @@ const dataClientes = async () => {
   for (let i = 0; i < clientes.length; i++) {
     await Cliente.create({
       nombre: clientes[i].nombre,
-      fechaNac: clientes[i].fechaNac,
+      fechaNacimiento: clientes[i].fechaNac,
       telefono: clientes[i].telefono,
       telefonoEmergencia: clientes[i].telefonoEmergencia,
       correo: clientes[i].correo,
@@ -102,7 +102,6 @@ const dataTrabajadores = async () => {
     nombre: "Admin",
     password: encriptar('holi'),
     usuario: "Admin",
-    admin: 0,
     idTipoUsuario: 1
   });
   console.log(`Se insertó el admin.`.magenta);
@@ -111,7 +110,7 @@ const dataTrabajadores = async () => {
       nombre: trabajadores[i].nombre,
       usuario: trabajadores[i].usuario,
       password: encriptar('holi'),
-      admin: 1,
+      idAdmin: 1,
       idTipoUsuario: 2
     });
     console.log(`Se insertó el trabajador ${trabajadores[i].nombre}.`.magenta);
