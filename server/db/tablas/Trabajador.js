@@ -29,6 +29,11 @@ Trabajador.init(
       type: DataTypes.STRING(100),
       defaultValue: null,
     },
+    telefono: {
+      type: DataTypes.STRING(15),
+      allowNull: true,
+      defaultValue: null
+    },
     idAdmin: {
       type: DataTypes.INTEGER,
       allowNull: true,

@@ -102,7 +102,8 @@ const dataTrabajadores = async () => {
     nombre: "Admin",
     password: encriptar('holi'),
     usuario: "Admin",
-    idTipoUsuario: 1
+    idTipoUsuario: 1,
+    telefono: "1234567890"
   });
   console.log(`Se insertó el admin.`.magenta);
   for (let i = 0; i < trabajadores.length; i++) {
@@ -111,7 +112,8 @@ const dataTrabajadores = async () => {
       usuario: trabajadores[i].usuario,
       password: encriptar('holi'),
       idAdmin: 1,
-      idTipoUsuario: 2
+      idTipoUsuario: 2,
+      telefono: "1234567890"
     });
     console.log(`Se insertó el trabajador ${trabajadores[i].nombre}.`.magenta);
   };

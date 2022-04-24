@@ -25,6 +25,10 @@ const nuevo = async (body) => {
         let idAdmin = validar.validarNumero(body.idAdmin);
         res.idAdmin = idAdmin;
       }
+      if (body.telefono) {
+        let telefono = validar.validarNumero(body.telefono);
+        res.telefono = telefono;
+      }
       res.fechaUltimaActualizacion = moment()
       return res.save();
     })

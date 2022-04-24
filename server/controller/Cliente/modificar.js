@@ -25,6 +25,7 @@ const nuevo = async (body) => {
   })
   .then((res) => ({
     message: 'Se guardaron correctamente los cambios de este cliente.',
+    data: res
   }));
 };
 

@@ -12,6 +12,7 @@ const nuevo = async (body) => {
   const idTrabajador = validarId(body.idTrabajador);
   const cantidad = validarNumero(body.cantidad);
   const monto = validarNumero(body.monto);
+  let idPago = null
 
   return Cliente.findOne({ where: { idCliente } })
     .then((res) => {
@@ -36,22 +37,30 @@ const nuevo = async (body) => {
       });
     })
     .then(async (res) => {
-      console.log(res);
+      idPago = res.idPago
       res.folio = `pyr-${res.idPago}`;
       return res.save();
     })
     .then((res) => {
-      let fechaProximoPago = moment().add(cantidad, 'M');
-      Cliente.findOne({ where: { idCliente } }).then((res) => {
+      let letra = null
+      if(idPlan === 1) letra = 'w'
+      if(idPlan === 2) letra = 'M'
+      if(idPlan === 3) letra = 'y'
+      let fechaProximoPago = moment().add(cantidad, letra);
+      Cliente.findOne({ where: { idCliente } }).then(async (res) => {
         res.fechaUltimoPago = moment();
         if(!res.fechaProximoPago) res.fechaProximoPago = fechaProximoPago;
         if(moment(fechaProximoPago).isAfter(moment)) res.fechaProximoPago = fechaProximoPago;
-        res.fechaProximoPago = moment(res.fechaProximoPago).add(cantidad, 'M')
+        res.fechaProximoPago = moment(res.fechaProximoPago).add(cantidad, letra)
         return res.save();
       });
     })
+    .then(res => {
+      return Pago.findOne({where: idPago})
+    })
     .then((res) => ({
       message: `Se resgistró correctamente este pago.`,
+      data: res
     }));
 };
 

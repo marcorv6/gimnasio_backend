@@ -10,6 +10,10 @@ const nuevo = async (body) => {
   const nombre = validar(body.nombre);
   const usuario = validar(body.usuario);
   const password = validarAlfanumerico(body.password);
+  let telefono = null
+  if(body.telefono) {
+    telefono = validar(body.telefono);
+  }
 
   return TipoUsuario.findOne({ where: { idTipoUsuario } })
   .then((res) => {
@@ -27,6 +31,7 @@ const nuevo = async (body) => {
         password: encriptar(password),
         idAdmin,
         fechaUltimaActualizacion: fecha,
+        telefono
       });
     })
     .then((res) => {

@@ -1,5 +1,9 @@
 const helperPath = '../../helper';
-const {validar, validarCorreo, validarFecha} = require(`${helperPath}/validar`);
+const {
+  validar,
+  validarCorreo,
+  validarFecha,
+} = require(`${helperPath}/validar`);
 const dbPath = '../../db/tablas';
 const Cliente = require(`${dbPath}/Cliente`);
 
@@ -21,14 +25,14 @@ const nuevo = async (body) => {
     telefono,
     telefonoEmergencia,
     tipoSangre,
-    correo
-  })
-    .then((res) => {
-      if (!res) throw new Error('No se ha podido instalar el cliente en la db.');
-    })
-    .then((res) => ({
+    correo,
+  }).then((res) => {
+    if (!res) throw new Error('No se ha podido instalar el cliente en la db.');
+    return {
       message: `Se registró correctamente el cliente.`,
-    }));
+      data: res,
+    };
+  });
 };
 
 module.exports = nuevo;
