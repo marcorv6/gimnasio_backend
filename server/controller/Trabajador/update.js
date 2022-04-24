@@ -14,19 +14,19 @@ const nuevo = async (body) => {
         res.nombre = nombre;
       }
       if (body.usuario) {
-        let usuario = validar.validarNumero(body.usuario);
+        let usuario = validar.validar(body.usuario);
         res.usuario = usuario;
       }
       if (body.password) {
-        let password = validar.validarNumero(body.password);
+        let password = validar.validar(body.password);
         res.password = encriptar(password);
       }
       if (body.idAdmin) {
-        let idAdmin = validar.validarNumero(body.idAdmin);
+        let idAdmin = validar.validarId(body.idAdmin);
         res.idAdmin = idAdmin;
       }
       if (body.telefono) {
-        let telefono = validar.validarNumero(body.telefono);
+        let telefono = validar.validar(body.telefono);
         res.telefono = telefono;
       }
       res.fechaUltimaActualizacion = moment()
