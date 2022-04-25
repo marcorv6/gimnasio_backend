@@ -10,8 +10,6 @@ const Cliente = require(`${dbPath}/Cliente`);
 const nuevo = async (body) => {
   const nombre = validar(body.nombre, 'el nombre');
   const fechaNacimiento = validarFecha(body.fechaNacimiento);
-  const fechaUltimoPago = body.fechaUltimoPago;
-  const fechaProximoPago = body.fechaProximoPago;
   const telefono = validar(body.telefono, 'El teléfono');
   const telefonoEmergencia = validar(body.telefonoEmergencia);
   const correo = validarCorreo(body.correo);
@@ -20,8 +18,6 @@ const nuevo = async (body) => {
   return Cliente.create({
     nombre,
     fechaNacimiento,
-    fechaUltimoPago,
-    fechaProximoPago,
     telefono,
     telefonoEmergencia,
     tipoSangre,
