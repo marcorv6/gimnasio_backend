@@ -56,7 +56,7 @@ const nuevo = async (body) => {
       });
     })
     .then(res => {
-      return Pago.findOne({where: idPago, include: [{model: Cliente}, {model: Trabajador}]},
+      return Pago.findOne({where: idPago, include: [{model: Cliente}, {model: Trabajador}, {model: Plan}]},
     )})
     .then((res) => ({
       message: `Se resgistró correctamente este pago.`,
