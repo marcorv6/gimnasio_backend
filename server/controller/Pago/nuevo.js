@@ -1,17 +1,18 @@
 const moment = require('moment');
 const { validarId } = require(`../../helper/validar`);
-const { validarNumero } = require('../../helper/validar');
+const { validar } = require('../../helper/validar');
 const Pago = require('../../db/tablas/Pago');
 const Cliente = require('../../db/tablas/Cliente');
 const Trabajador = require('../../db/tablas/Trabajador');
 const Plan = require('../../db/tablas/Plan');
 
 const nuevo = async (body) => {
-  const idCliente = validarId(body.idCliente);
-  const idPlan = validarId(body.idPlan);
-  const idTrabajador = validarId(body.idTrabajador);
-  const cantidad = validarNumero(body.cantidad);
-  const monto = validarNumero(body.monto);
+  console.log(body);
+  const idCliente = validarId(body.idCliente, 'idCliente');
+  const idPlan = validarId(body.idPlan, 'idPlan');
+  const idTrabajador = validarId(body.idTrabajador, 'idTrabajador');
+  const cantidad = validarId(body.cantidad, 'cantidad');
+  const monto = validarId(body.monto, 'monto');
   let idPago = null;
 
   return Cliente.findOne({ where: { idCliente } })
@@ -38,7 +39,7 @@ const nuevo = async (body) => {
     })
     .then(async (res) => {
       idPago = res.idPago;
-      res.folio = `pyr-${res.idPago}`;
+      res.folio = `PYR-${res.idPago}`;
       return res.save();
     })
     .then((res) => {
@@ -48,10 +49,16 @@ const nuevo = async (body) => {
       if (idPlan === 3) plan = 'y';
       Cliente.findOne({ where: { idCliente } }).then(async (res) => {
         res.fechaUltimoPago = moment();
-        if (!res.fechaProximoPago) res.fechaProximoPago = moment().add(cantidad, plan);
+        if (!res.fechaProximoPago)
+          res.fechaProximoPago = moment().add(cantidad, plan);
         else {
-          if (!moment(res.fechaProximoPago).isAfter(moment())) res.fechaProximoPago = moment().add(cantidad, plan);
-          else res.fechaProximoPago = moment(res.fechaProximoPago).add(cantidad,plan);
+          if (!moment(res.fechaProximoPago).isAfter(moment()))
+            res.fechaProximoPago = moment().add(cantidad, plan);
+          else
+            res.fechaProximoPago = moment(res.fechaProximoPago).add(
+              cantidad,
+              plan
+            );
         }
         return res.save();
       });
