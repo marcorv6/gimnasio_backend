@@ -12,7 +12,7 @@ const nuevo = async (body) => {
   const idTrabajador = validarId(body.idTrabajador);
   const cantidad = validarNumero(body.cantidad);
   const monto = validarNumero(body.monto);
-  let idPago = null
+  let idPago = null;
 
   return Cliente.findOne({ where: { idCliente } })
     .then((res) => {
@@ -37,30 +37,34 @@ const nuevo = async (body) => {
       });
     })
     .then(async (res) => {
-      idPago = res.idPago
+      idPago = res.idPago;
       res.folio = `pyr-${res.idPago}`;
       return res.save();
     })
     .then((res) => {
-      let letra = null
-      if(idPlan === 1) letra = 'w'
-      if(idPlan === 2) letra = 'M'
-      if(idPlan === 3) letra = 'y'
-      let fechaProximoPago = moment().add(cantidad, letra);
+      let plan = null;
+      if (idPlan === 1) plan = 'w';
+      if (idPlan === 2) plan = 'M';
+      if (idPlan === 3) plan = 'y';
       Cliente.findOne({ where: { idCliente } }).then(async (res) => {
         res.fechaUltimoPago = moment();
-        if(!res.fechaProximoPago) res.fechaProximoPago = fechaProximoPago;
-        if(moment(fechaProximoPago).isAfter(moment())) res.fechaProximoPago = fechaProximoPago;
-        res.fechaProximoPago = moment(res.fechaProximoPago).add(cantidad, letra)
+        if (!res.fechaProximoPago) res.fechaProximoPago = moment().add(cantidad, plan);
+        else {
+          if (!moment(res.fechaProximoPago).isAfter(moment())) res.fechaProximoPago = moment().add(cantidad, plan);
+          else res.fechaProximoPago = moment(res.fechaProximoPago).add(cantidad,plan);
+        }
         return res.save();
       });
     })
-    .then(res => {
-      return Pago.findOne({where: idPago, include: [{model: Cliente}, {model: Trabajador}, {model: Plan}]},
-    )})
+    .then((res) => {
+      return Pago.findOne({
+        where: idPago,
+        include: [{ model: Trabajador }, { model: Plan }],
+      });
+    })
     .then((res) => ({
       message: `Se resgistró correctamente este pago.`,
-      data: res
+      data: res,
     }));
 };
 
