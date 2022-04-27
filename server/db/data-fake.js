@@ -7,23 +7,24 @@ const { encriptar } = require('../helper/encriptar');
 const sequelize = require('../config/sequelize.conf');
 
 const dataPlanes = async () => {
-  let planes = ['1', '2', '3', '4'];
+  let planes = ['Semanal', 'Mensual', 'Anual'];
+  const precios = [100, 200, 1000];
 
   for (let i = 0; i < planes.length; i++) {
     await Plan.create({
       nombre: planes[i],
-      precio: i*100,
+      precio: precios[i],
     });
     console.log(`Se insertó el plan ${planes[i]}.`.magenta);
   }
 };
 
 const dataAdmin = async () => {
-  let tiposUser = ['Admin', 'Operador',];
+  let tiposUser = ['Admin', 'Operador'];
 
   for (let i = 0; i < tiposUser.length; i++) {
     await TipoUsuario.create({
-      nombre: tiposUser[i]
+      nombre: tiposUser[i],
     });
     console.log(`Se insertó el tipo usuario ${tiposUser[i]}.`.magenta);
   }
@@ -99,11 +100,11 @@ const dataTrabajadores = async () => {
   ];
 
   await Trabajador.create({
-    nombre: "Admin",
+    nombre: 'Admin',
     password: encriptar('holi'),
-    usuario: "Admin",
+    usuario: 'Admin',
     idTipoUsuario: 1,
-    telefono: "1234567890"
+    telefono: '1234567890',
   });
   console.log(`Se insertó el admin.`.magenta);
   for (let i = 0; i < trabajadores.length; i++) {
@@ -113,23 +114,24 @@ const dataTrabajadores = async () => {
       password: encriptar('holi'),
       idAdmin: 1,
       idTipoUsuario: 2,
-      telefono: "1234567890"
+      telefono: '1234567890',
     });
     console.log(`Se insertó el trabajador ${trabajadores[i].nombre}.`.magenta);
-  };
   }
+};
 
 const dataPagos = async () => {
-  let pagos = ['11111111', '22222222', '33333333', '44444444'];
+  let pagos = ['11111111', '22222222', '33333333'];
+  const precios = [100, 400, 3000];
 
   for (let i = 0; i < pagos.length; i++) {
     await Pago.create({
       folio: pagos[i],
-      monto: i*100,
-      cantidad: i+1,
-      idCliente: i+1000,
-      idTrabajador: i+1,
-      idPlan: i+1
+      monto: precios[i],
+      cantidad: i + 1,
+      idCliente: i + 1000,
+      idTrabajador: i + 1,
+      idPlan: i + 1,
     });
     console.log(`Se insertó el pago ${pagos[i]}.`.magenta);
   }
@@ -138,9 +140,9 @@ const dataPagos = async () => {
 const exec = async () => {
   await dataPlanes();
   await dataAdmin();
-  await dataClientes();
+  //await dataClientes();
   await dataTrabajadores();
-  await dataPagos();
+  //await dataPagos();
   console.log(
     '\nSe ha instalado exitosamente la información falsa en la base de datos.\n'
       .underline.bold.green
