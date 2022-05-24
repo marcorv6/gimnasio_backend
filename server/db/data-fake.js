@@ -140,9 +140,9 @@ const dataPagos = async () => {
 const exec = async () => {
   await dataPlanes();
   await dataAdmin();
-  //await dataClientes();
+  await dataClientes();
   await dataTrabajadores();
-  //await dataPagos();
+  await dataPagos();
   console.log(
     '\nSe ha instalado exitosamente la información falsa en la base de datos.\n'
       .underline.bold.green
